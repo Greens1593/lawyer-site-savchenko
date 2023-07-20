@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="ua">
       <body className={inter.className}>
         <Navbar />
-        {children}
+        <div className="container mx-auto mt-[40px]">{children}</div>
       </body>
     </html>
   );

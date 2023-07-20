@@ -1,10 +1,24 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaFacebookF, FaInstagram, FaTelegram } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = usePathname();
+
+  const NavLink = ({ href, children }) => {
+    const isActive = router === href;
+    const className = `text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4 ${
+      isActive ? "border-b-2 border-white" : ""
+    }`;
+    return (
+      <Link href={href}>
+        <span className={className}>{children}</span>
+      </Link>
+    );
+  };
 
   return (
     <nav className="bg-gray-800 p-2 mt-0 fixed w-full z-10 top-0">
@@ -42,31 +56,11 @@ const Navbar = () => {
             isOpen ? "" : "hidden"
           }`}
         >
-          <Link href="/about">
-            <span className="text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Головна
-            </span>
-          </Link>
-          <Link href="/about">
-            <span className="text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Про нас
-            </span>
-          </Link>
-          <Link href="/faq">
-            <span className="text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Корисні матеріали
-            </span>
-          </Link>
-          <Link href="/reviews">
-            <span className="text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Відгуки
-            </span>
-          </Link>
-          <Link href="/contact">
-            <span className="text-center cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Контакти
-            </span>
-          </Link>
+          <NavLink href="/">Головна</NavLink>
+          <NavLink href="/about">Про нас</NavLink>
+          <NavLink href="/faq">Корисні матеріали</NavLink>
+          <NavLink href="/reviews">Відгуки</NavLink>
+          <NavLink href="/contact">Контакти</NavLink>
         </div>
 
         <div className="flex flex-col justify-center items-center lg:flex-row lg:items-center lg:justify-end">
